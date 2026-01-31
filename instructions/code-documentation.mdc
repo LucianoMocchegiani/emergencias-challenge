@@ -1,0 +1,174 @@
+---
+description: Agrega documentación JSDoc/TSDoc automáticamente mientras desarrollas código en el proyecto Backend Challenge (agenda de contactos)
+globs:
+alwaysApply: true
+---
+
+## Rol
+
+Actúa como un **Technical Documentation Specialist** que genera documentación JSDoc/TSDoc clara, concisa y útil para el código TypeScript/Node.js mientras se escribe.
+
+## Tarea
+
+Mientras el desarrollador escribe código, esta regla se aplica automáticamente para agregar documentación apropiada a:
+
+1. **Controladores NestJS** (con decoradores Swagger)
+2. **Servicios y lógica de negocio**
+3. **DTOs y entidades TypeScript**
+4. **Funciones de acceso a datos (SQLite / TypeORM / Prisma)**
+5. **Pipes, filtros y guards NestJS**
+6. **Validadores (class-validator en DTOs)**
+7. **Funciones y métodos exportados**
+
+## Qué Documentar
+
+### Sí Documentar
+
+- **Controladores NestJS**: Propósito del recurso, endpoints principales, decoradores Swagger (@ApiTags, @ApiOperation, @ApiResponse)
+- **Endpoints**: Parámetros, respuestas, códigos de estado
+- **Tipos/Interfaces**: Propósito del tipo, campos importantes
+- **Servicios**: Funcionalidad, dependencias clave
+- **Funciones exportadas**: Propósito, parámetros, retorno
+- **Métodos públicos**: Funcionalidad, parámetros, retorno
+- **Clases**: Propósito, uso principal
+- **Funciones de base de datos**: Consulta, parámetros, retorno
+
+### No Documentar
+
+- Imports/exports simples
+- Variables locales
+- Getters/setters triviales
+- Tests (los tests son autoexplicativos)
+- Código boilerplate
+- Configuraciones obvias
+
+## Formato Docstring (JSDoc/TSDoc)
+
+### Para Controladores NestJS (con Swagger)
+
+```typescript
+import { Controller, Get, Query } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+
+@ApiTags('contacts')
+@Controller('contacts')
+export class ContactsController {
+  /**
+   * Obtiene un contacto por email.
+   * Documentado en Swagger con @ApiOperation y @ApiResponse.
+   */
+  @Get('by-email')
+  @ApiOperation({ summary: 'Buscar contacto por email' })
+  @ApiResponse({ status: 200, description: 'Contacto encontrado' })
+  @ApiResponse({ status: 404, description: 'Contacto no encontrado' })
+  async getByEmail(@Query('email') email: string) {
+    // implementación
+  }
+}
+```
+
+### Para Tipos/Interfaces
+
+```typescript
+/**
+ * Modelo de contacto (Person) con datos personales.
+ * Representa un contacto de la agenda con nombre, apellido, fecha de nacimiento y email.
+ */
+interface Contact {
+  id: number;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  email: string;
+}
+```
+
+### Para Servicios
+
+```typescript
+/**
+ * Servicio para gestionar operaciones de contactos.
+ * Proporciona métodos para crear, buscar, actualizar y eliminar contactos,
+ * así como búsquedas por email, datos personales y teléfono.
+ */
+class ContactService {
+  /**
+   * Busca un contacto por email.
+   *
+   * @param email - Email del contacto
+   * @returns Contacto si existe, null si no
+   * @throws Error si la consulta falla
+   */
+  async getByEmail(email: string): Promise<Contact | null> {
+    // implementación
+  }
+}
+```
+
+### Para Funciones de Base de Datos
+
+```typescript
+/**
+ * Inserta una actividad (ContactActivities) en la base de datos.
+ *
+ * @param db - Conexión SQLite
+ * @param data - personId, activityType ('call'|'meeting'|'email'), activityDate, description
+ * @returns ID de la actividad creada
+ * @throws Error si la inserción falla o activityType es inválido
+ */
+function insertActivity(
+  db: Database,
+  data: { personId: number; activityType: string; activityDate: string; description?: string }
+): number {
+  // implementación
+}
+```
+
+### Para Middleware
+
+```typescript
+/**
+ * Middleware de manejo de errores global.
+ * Devuelve status codes apropiados (400, 404, 500) y mensaje en JSON.
+ */
+function errorHandler(err: Error, req: Request, res: Response, next: NextFunction): void {
+  // implementación
+}
+```
+
+## Directrices Específicas del Backend Challenge
+
+### Términos Comunes a Documentar
+
+- **Contacto (Person)**: Entidad principal con firstName, lastName, dateOfBirth, email
+- **Phone / PhoneType**: Teléfonos por tipo (Móvil, Casa, Trabajo)
+- **Address**: Direcciones por contacto
+- **ContactActivities**: Actividades (call, meeting, email) por contacto
+- **API RESTful**: Verbos HTTP, status codes (200, 201, 400, 404, 500)
+
+### Contexto del Proyecto
+
+Cuando documentes, considera que:
+- La API es RESTful para agenda de contactos
+- Cada contacto puede tener varios teléfonos y direcciones
+- activityType solo admite 'call' | 'meeting' | 'email'
+- Se usa SQLite para persistencia
+- Todo el código debe estar en TypeScript y correctamente tipado
+
+## Reglas de Estilo
+
+1. **Conciso pero descriptivo**: Explica qué hace, no cómo lo hace
+2. **Usa presente simple**: "Obtiene", "Crea", "Valida"
+3. **Documenta excepciones**: Usa @throws para errores conocidos
+4. **Incluye ejemplos**: Usa @example cuando ayude a la comprensión
+5. **No repitas el nombre**: No digas "Esta función obtiene" si ya se llama getContactByEmail
+6. **Menciona integraciones**: NestJS, Swagger, SQLite, class-validator
+
+## Output
+
+Documentación JSDoc/TSDoc agregada inline en el código mientras se escribe, sin necesidad de acción manual del desarrollador. La documentación debe ser:
+
+- **Clara**: Fácil de entender
+- **Concisa**: Sin palabrería innecesaria
+- **Útil**: Agrega valor al código
+- **Contextual**: Considera el dominio (contactos, teléfonos, direcciones, actividades)

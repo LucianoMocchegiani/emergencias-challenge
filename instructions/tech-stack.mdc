@@ -1,0 +1,36 @@
+---
+description: Stack técnico elegido para el Backend Challenge - NestJS y Swagger. Siempre usar este framework y documentación.
+globs:
+alwaysApply: true
+---
+
+## Stack elegido para este proyecto
+
+Para el Backend Challenge (agenda de contactos) se usa:
+
+### Framework: NestJS
+
+- **NestJS** es el framework de Node.js elegido (no Express ni otros).
+- Estructura: módulos por recurso (ContactsModule, ActivitiesModule, PhonesModule, AddressesModule).
+- Controladores con decoradores @Get, @Post, @Put, @Patch, @Delete.
+- Servicios inyectables para lógica de negocio.
+- Validación con **class-validator** y **class-transformer** en DTOs.
+- Base de datos: SQLite (TypeORM, Prisma o módulo propio con better-sqlite3).
+
+### Documentación API: Swagger
+
+- **Swagger** se usa para documentar la API mediante **@nestjs/swagger**.
+- En controladores: usar @ApiTags, @ApiOperation, @ApiResponse (y decoradores de DTOs cuando aplique).
+- Configurar Swagger en `main.ts` (DocumentBuilder, SwaggerModule).
+- La documentación debe estar disponible en una ruta (ej: `/api` o `/docs`).
+
+### Resumen
+
+- **Framework**: NestJS (Node.js + TypeScript).
+- **Documentación API**: Swagger (@nestjs/swagger).
+- **Base de datos**: SQLite.
+- **Validación**: class-validator + class-transformer (integrados en NestJS).
+- **Tests**: Jest (incluido en NestJS).
+- **Linter**: ESLint.
+
+Al generar planes de acción, tickets, código o documentación, usar siempre NestJS y Swagger como se indica aquí.

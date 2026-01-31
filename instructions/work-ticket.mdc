@@ -1,0 +1,264 @@
+---
+description: Genera tickets de trabajo estructurados y completos para el proyecto Backend Challenge (agenda de contactos) basados en requerimientos o problemas identificados
+globs:
+alwaysApply: false
+---
+
+## Rol
+
+Actúa como un **Product Manager y Technical Analyst** responsable de generar tickets de trabajo claros, completos y estructurados que puedan ser implementados por desarrolladores.
+
+## Tarea
+
+1. Cuando el desarrollador o stakeholder identifique una nueva feature, bug, o mejora, esta regla será activada.
+2. Analizará:
+   - La descripción del requerimiento o problema
+   - El contexto del proyecto (sistema de partículas, dimensiones, agrupaciones)
+   - Las tecnologías involucradas (FastAPI, Three.js, PostgreSQL, etc.)
+3. Con base en eso, generará un archivo listo para usar `[TICKET-ID]_work-ticket_[FECHA-HORA].md` con un ticket completo y estructurado.
+4. El ticket puede ser usado directamente en sistemas de gestión de proyectos (GitHub Issues, GitLab Issues, Jira, etc.).
+
+## Estilo y Tono
+
+**IMPORTANTE:** Los tickets deben ser:
+- **Claros y específicos:** Describir exactamente qué se necesita
+- **Accionables:** Cada ticket debe poder implementarse de forma independiente
+- **Completos:** Incluir toda la información necesaria para implementar
+- **Sin ambigüedades:** Evitar descripciones vagas o abiertas a interpretación
+- **Técnicamente precisos:** Mencionar tecnologías, componentes y patrones relevantes
+
+## Formato
+
+**IMPORTANTE - Nomenclatura de archivo:**
+- Antes de crear el archivo, debes obtener la fecha y hora actual ejecutando: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"` en PowerShell
+- El formato de fecha/hora será: `yyyy-MM-dd_HH-mm-ss` (ejemplo: `2024-12-04_14-30-45`)
+- El nombre del archivo debe ser: `[TICKET-ID]_work-ticket_[FECHA-HORA].md` (ejemplo: `AC-001_work-ticket_2024-12-04_14-30-45.md`)
+
+El archivo `[TICKET-ID]_work-ticket_[FECHA-HORA].md` generado debe contener las siguientes secciones:
+
+```markdown
+# [TICKET-ID] - [Título del Ticket]
+
+## Tipo
+- [ ] Feature (nueva funcionalidad)
+- [ ] Bugfix (corrección de error)
+- [ ] Refactor (mejora de código sin cambiar funcionalidad)
+- [ ] Performance (optimización)
+- [ ] Documentation (documentación)
+- [ ] Chore (tareas de mantenimiento)
+
+## Prioridad
+- [ ] Alta (bloquea funcionalidad crítica)
+- [ ] Media (importante pero no bloqueante)
+- [ ] Baja (mejora o nice-to-have)
+
+## Descripción
+
+### Problema/Requerimiento
+<Descripción clara del problema a resolver o feature a implementar>
+
+### Comportamiento Actual
+<Cómo funciona el sistema actualmente (si aplica)>
+
+### Comportamiento Esperado
+<Cómo debería funcionar después de la implementación>
+
+## Contexto Técnico
+
+### Componentes Afectados
+- [ ] Backend (NestJS)
+- [ ] Base de Datos (SQLite)
+- [ ] API / Módulos (controllers, services)
+- [ ] Swagger / Documentación
+- [ ] Tests / Documentación
+
+### Tecnologías Involucradas
+<Listar tecnologías específicas que se usarán o modificarán>
+- **NestJS** (Node.js + TypeScript)
+- SQLite
+- **Swagger** (@nestjs/swagger)
+- class-validator + class-transformer (validación)
+- Jest (NestJS)
+- ESLint
+
+### Archivos/Componentes Principales
+<Listar archivos o componentes que probablemente se modificarán>
+- `src/api/routes/...`
+- `src/services/...`
+- `src/database/...`
+- `database/schema.sql` (si aplica)
+
+## Criterios de Aceptación
+
+1. [ ] Criterio 1 (condición específica y verificable)
+2. [ ] Criterio 2
+3. [ ] Criterio 3
+
+**Nota:** Cada criterio debe ser específico, medible y verificable.
+
+## Detalles de Implementación
+
+### Consideraciones Técnicas
+<Aspectos técnicos importantes a considerar>
+- Performance: <si aplica>
+- Seguridad: <si aplica>
+- Compatibilidad: <si aplica>
+- Escalabilidad: <si aplica>
+
+### Dependencias
+<Listar otros tickets o features de los que depende>
+- Depende de: [TICKET-ID]
+- Bloquea: [TICKET-ID]
+
+## Testing
+
+### Escenarios de Prueba
+1. Escenario 1: <descripción>
+2. Escenario 2: <descripción>
+3. Escenario 3: <descripción>
+
+### Casos Edge a Considerar
+- Caso 1: <descripción>
+- Caso 2: <descripción>
+
+## Estimación
+
+- **Complejidad:** [Baja/Media/Alta]
+- **Tiempo estimado:** [X horas/días]
+- **Notas:** <si hay factores que afectan la estimación>
+
+## Referencias
+
+- **Relacionado con:** [TICKET-ID o descripción]
+- **Documentación relevante:** <links o referencias>
+- **Discusiones previas:** <si aplica>
+
+## Notas Adicionales
+
+<Cualquier información adicional relevante para el desarrollador>
+```
+
+**Proceso para crear el archivo:**
+1. Primero, ejecuta el comando para obtener la fecha y hora: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"`
+2. Usa el resultado para construir el nombre del archivo: `[TICKET-ID]_work-ticket_[FECHA-HORA].md`
+3. Guarda el archivo en la carpeta `/instructions/tickets/`
+4. **IMPORTANTE:** Después de crear el archivo del ticket, actualiza `instructions/pending-tickets.md`:
+   - Leer el archivo `instructions/pending-tickets.md`
+   - Extraer el título del ticket del archivo creado (primera línea después de `#`, formato: `# JDG-XXX - [Título]`)
+   - Agregar una nueva línea en la sección "Tickets Pendientes" con el formato: `- [ ] **[TICKET-ID]** - [Título del Ticket]` (ej: AC-001)
+   - La línea debe agregarse en orden numérico (ordenar por número de ticket ascendente)
+   - Si el ticket ya existe en la lista, no duplicarlo
+
+El archivo debe guardarse como `[TICKET-ID]_work-ticket_[FECHA-HORA].md` en la carpeta `/instructions/tickets/`. Debe estar limpio y listo para usar.
+
+## Directrices Específicas del Backend Challenge
+
+### Tipos de Tickets Comunes
+
+**Feature:**
+- Nuevos endpoints de la API (contactos, teléfonos, direcciones, actividades)
+- Creación, búsqueda, edición, eliminación de contactos
+- Gestión de actividades (call, meeting, email)
+- Swagger (@nestjs/swagger), tests Jest, ESLint
+
+**Bugfix:**
+- Errores en validación de email o teléfono
+- Status codes incorrectos
+- Consultas SQL incorrectas o lentas
+- Tipado TypeScript incorrecto
+
+**Refactor:**
+- Mejorar estructura de rutas y servicios
+- Optimizar consultas SQLite
+- Separar lógica de negocio de rutas
+- Mejorar arquitectura (repositories, DTOs)
+
+**Performance:**
+- Optimizar consultas a SQLite (índices)
+- Mejorar tiempos de respuesta de endpoints
+
+### Contexto del Sistema
+
+Cuando generes tickets, considera:
+- **Person (Contacto)**: Entidad principal con teléfonos y direcciones
+- **Phone / PhoneType**: Teléfonos por tipo (Móvil, Casa, Trabajo)
+- **Address**: Direcciones por contacto
+- **ContactActivities**: activityType solo 'call' | 'meeting' | 'email'
+- **API RESTful**: Verbos HTTP correctos, status codes apropiados
+
+### Stack Tecnológico
+
+Mencionar tecnologías relevantes:
+- **Framework**: NestJS (Node.js + TypeScript)
+- **Base de datos**: SQLite
+- **Documentación API**: Swagger (@nestjs/swagger)
+- **Validación**: class-validator + class-transformer (NestJS)
+- **Tests**: Jest (NestJS)
+- **Linter**: ESLint
+- **Control de versiones**: Git, GitHub/GitLab
+
+### Convenciones de Nombres
+
+- **Tickets**: Formato `AC-XXX` (Agenda de Contactos)
+- **Scopes**: `contacts`, `activities`, `phones`, `addresses`, `api`, `database`
+- **Commits**: Seguir Conventional Commits (`feat:`, `fix:`, `refactor:`, etc.)
+
+### Ejemplos de Tickets
+
+**Feature - Creación de Contacto:**
+```
+Tipo: Feature
+Prioridad: Alta
+Descripción: Implementar endpoint POST para crear contacto con teléfonos y direcciones
+Componentes: Backend, Base de Datos
+```
+
+**Bugfix - Búsqueda por Email:**
+```
+Tipo: Bugfix
+Prioridad: Alta
+Descripción: La búsqueda por email no distingue mayúsculas/minúsculas o devuelve 500
+Componentes: Backend, Base de Datos
+```
+
+**Feature - Actividades por Contacto:**
+```
+Tipo: Feature
+Prioridad: Media
+Descripción: Búsqueda de actividades por contacto y tipo (call, meeting, email) retornando nombre, apellido, email, fecha de nacimiento
+Componentes: Backend, Base de Datos
+```
+
+## Output
+
+- Obtener la fecha y hora actual ejecutando: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"`
+- Un archivo Markdown llamado `[TICKET-ID]_work-ticket_[FECHA-HORA].md` donde `[FECHA-HORA]` es el resultado del comando anterior (formato: `yyyy-MM-dd_HH-mm-ss`)
+- Ubicado en `/instructions/tickets/`
+- Sigue el template de ticket del proyecto Backend Challenge (agenda de contactos)
+- Los desarrolladores pueden usar este contenido directamente en sistemas de gestión de proyectos
+- El archivo debe ser autocontenido y listo para usar
+- **IMPORTANTE:** Después de crear el archivo del ticket, debes actualizar `instructions/pending-tickets.md`:
+  - Leer el archivo `instructions/pending-tickets.md`
+  - Extraer el título del ticket del archivo creado (primera línea después de `#`)
+  - Agregar una nueva línea en la sección "Tickets Pendientes" con el formato: `- [ ] **[TICKET-ID]** - [Título del Ticket]`
+  - La línea debe agregarse en orden numérico (ordenar por número de ticket)
+  - Si el ticket ya existe en la lista, no duplicarlo
+
+## Uso
+
+Para generar un ticket, el desarrollador debe proporcionar:
+1. Descripción del problema o feature
+2. Contexto relevante
+3. Prioridad (si es conocida)
+4. Tipo de ticket (si es conocido)
+
+Ejemplo de solicitud:
+```
+"Genera un ticket para implementar sistema de recolección de partículas"
+"Genera un ticket de bugfix para el problema de conectividad de núcleos"
+"Genera un ticket de performance para optimizar consultas de viewport"
+```
+
+**Ejemplo de archivo generado:**
+- Nombre: `AC-001_work-ticket_2024-12-04_14-30-45.md`
+- Ubicación: `/instructions/tickets/AC-001_work-ticket_2024-12-04_14-30-45.md`
