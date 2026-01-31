@@ -21,7 +21,7 @@ async function bootstrap() {
     .addTag('Activities', 'Actividades: creación y búsqueda por contacto y tipo')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
 }
