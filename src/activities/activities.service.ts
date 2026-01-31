@@ -36,7 +36,9 @@ export class ActivitiesService {
    * @throws NotFoundException si el contacto (personId) no existe.
    */
   async create(dto: CreateActivityDto): Promise<ContactActivity> {
-    const person = await this.personRepo.findOne({ where: { id: dto.personId } });
+    const person = await this.personRepo.findOne({
+      where: { id: dto.personId },
+    });
     if (!person) {
       throw new NotFoundException('Contacto no encontrado');
     }

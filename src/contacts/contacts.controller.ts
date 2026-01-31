@@ -45,7 +45,11 @@ export class ContactsController {
 
   @Get('email')
   @ApiOperation({ summary: 'Búsqueda por email' })
-  @ApiQuery({ name: 'email', required: true, description: 'Email del contacto' })
+  @ApiQuery({
+    name: 'email',
+    required: true,
+    description: 'Email del contacto',
+  })
   @ApiResponse({ status: 200, description: 'Contacto encontrado' })
   @ApiResponse({ status: 404, description: 'Contacto no encontrado' })
   @ApiResponse({ status: 400, description: 'Email vacío o faltante' })
@@ -62,16 +66,34 @@ export class ContactsController {
 
   @Get('by-phone')
   @ApiOperation({ summary: 'Búsqueda por número y tipo de teléfono' })
-  @ApiQuery({ name: 'number', required: true, description: 'Número de teléfono' })
-  @ApiQuery({ name: 'phoneTypeId', required: false, type: Number, description: 'ID del tipo de teléfono' })
-  @ApiQuery({ name: 'typeName', required: false, description: 'Nombre del tipo (alternativa a phoneTypeId)' })
+  @ApiQuery({
+    name: 'number',
+    required: true,
+    description: 'Número de teléfono',
+  })
+  @ApiQuery({
+    name: 'phoneTypeId',
+    required: false,
+    type: Number,
+    description: 'ID del tipo de teléfono',
+  })
+  @ApiQuery({
+    name: 'typeName',
+    required: false,
+    description: 'Nombre del tipo (alternativa a phoneTypeId)',
+  })
   @ApiResponse({ status: 200, description: 'Contacto encontrado' })
   @ApiResponse({ status: 404, description: 'Contacto no encontrado' })
-  @ApiResponse({ status: 400, description: 'Parámetros inválidos o tipo inexistente' })
+  @ApiResponse({
+    status: 400,
+    description: 'Parámetros inválidos o tipo inexistente',
+  })
   async findByPhoneAndType(@Query() query: SearchByPhoneQueryDto) {
     const hasId = query.phoneTypeId !== undefined && query.phoneTypeId !== null;
     const hasName =
-      query.typeName !== undefined && query.typeName !== null && String(query.typeName).trim() !== '';
+      query.typeName !== undefined &&
+      query.typeName !== null &&
+      String(query.typeName).trim() !== '';
     if (!hasId && !hasName) {
       throw new BadRequestException('Debe proporcionar phoneTypeId o typeName');
     }
@@ -87,7 +109,9 @@ export class ContactsController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Búsqueda por datos personales (filtros opcionales)' })
+  @ApiOperation({
+    summary: 'Búsqueda por datos personales (filtros opcionales)',
+  })
   @ApiQuery({ name: 'firstName', required: false })
   @ApiQuery({ name: 'lastName', required: false })
   @ApiQuery({ name: 'dateOfBirth', required: false })
