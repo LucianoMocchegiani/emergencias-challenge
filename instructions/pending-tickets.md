@@ -4,7 +4,6 @@ Lista de tickets que aún no tienen un Pull Request completado.
 
 ## Tickets Pendientes
 
-- [ ] **AC-001** - Planificación generalizada: creación de tickets para dividir el trabajo
 - [ ] **AC-003** - Módulo contactos: creación, búsqueda por email, búsqueda por datos personales, edición, eliminación
 - [ ] **AC-004** - Búsqueda de contacto por número y tipo de teléfono (y soporte de teléfonos/direcciones en contacto)
 - [ ] **AC-005** - ContactActivities: creación de actividad y búsqueda por contacto y tipo
@@ -12,7 +11,7 @@ Lista de tickets que aún no tienen un Pull Request completado.
 - [ ] **AC-007** - Tests (Jest) y linter (ESLint)
 
 ## Tickets Completados (con PR)
-
+- [x] **AC-001** - Planificación generalizada: creación de tickets para dividir el trabajo
 - [x] **AC-002** - Proyecto NestJS + SQLite + schema (tablas Person, Phone, PhoneType, Address, ContactActivities)
 
 ## Notas
