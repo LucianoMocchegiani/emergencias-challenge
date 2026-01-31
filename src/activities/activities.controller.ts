@@ -38,15 +38,26 @@ export class ActivitiesController {
 
   @Get()
   @ApiOperation({ summary: 'Buscar actividades por contacto y tipo' })
-  @ApiQuery({ name: 'personId', required: true, type: Number, description: 'ID del contacto' })
+  @ApiQuery({
+    name: 'personId',
+    required: true,
+    type: Number,
+    description: 'ID del contacto',
+  })
   @ApiQuery({
     name: 'activityType',
     required: true,
     enum: ['call', 'meeting', 'email'],
     description: 'Tipo de actividad',
   })
-  @ApiResponse({ status: 200, description: 'Contacto y actividades encontrados' })
-  @ApiResponse({ status: 400, description: 'personId o activityType inválidos' })
+  @ApiResponse({
+    status: 200,
+    description: 'Contacto y actividades encontrados',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'personId o activityType inválidos',
+  })
   @ApiResponse({ status: 404, description: 'Contacto no encontrado' })
   async findByContactAndType(
     @Query('personId') personId: string,

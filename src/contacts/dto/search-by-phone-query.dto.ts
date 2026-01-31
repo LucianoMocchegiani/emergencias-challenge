@@ -1,4 +1,10 @@
-import { IsString, IsOptional, IsInt, IsNotEmpty, MinLength } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsInt,
+  IsNotEmpty,
+  MinLength,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -9,13 +15,22 @@ export class SearchByPhoneQueryDto {
   @MinLength(1, { message: 'El número de teléfono es requerido' })
   number: string;
 
-  @ApiPropertyOptional({ example: 1, type: Number, description: 'ID del tipo de teléfono' })
+  @ApiPropertyOptional({
+    example: 1,
+    type: Number,
+    description: 'ID del tipo de teléfono',
+  })
   @IsOptional()
-  @Transform(({ value }) => (value === '' || value === undefined ? undefined : Number(value)))
+  @Transform(({ value }) =>
+    value === '' || value === undefined ? undefined : Number(value),
+  )
   @IsInt({ message: 'phoneTypeId debe ser un número entero' })
   phoneTypeId?: number;
 
-  @ApiPropertyOptional({ example: 'móvil', description: 'Nombre del tipo (alternativa a phoneTypeId)' })
+  @ApiPropertyOptional({
+    example: 'móvil',
+    description: 'Nombre del tipo (alternativa a phoneTypeId)',
+  })
   @IsOptional()
   @IsString()
   typeName?: string;
