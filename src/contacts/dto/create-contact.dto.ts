@@ -1,4 +1,14 @@
-import { IsString, IsEmail, IsOptional, MinLength } from 'class-validator';
+import {
+  IsString,
+  IsEmail,
+  IsOptional,
+  MinLength,
+  IsArray,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { PhoneItemDto } from './phone-item.dto';
+import { AddressItemDto } from './address-item.dto';
 
 export class CreateContactDto {
   @IsString()
@@ -15,4 +25,16 @@ export class CreateContactDto {
 
   @IsEmail()
   email: string;
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => PhoneItemDto)
+  phones?: PhoneItemDto[];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => AddressItemDto)
+  addresses?: AddressItemDto[];
 }
