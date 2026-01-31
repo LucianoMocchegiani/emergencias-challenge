@@ -4,7 +4,6 @@ Lista de tickets que aún no tienen un Pull Request completado.
 
 ## Tickets Pendientes
 
-- [ ] **AC-006** - Swagger: documentación de todos los endpoints
 - [ ] **AC-007** - Tests (Jest) y linter (ESLint)
 
 ## Tickets Completados (con PR)
@@ -13,6 +12,7 @@ Lista de tickets que aún no tienen un Pull Request completado.
 - [x] **AC-003** - Módulo contactos: creación, búsqueda por email, búsqueda por datos personales, edición, eliminación
 - [x] **AC-004** - Búsqueda de contacto por número y tipo de teléfono (y soporte de teléfonos/direcciones en contacto)
 - [x] **AC-005** - ContactActivities: creación de actividad y búsqueda por contacto y tipo
+- [x] **AC-006** - Swagger: documentación de todos los endpoints
 
 ## Notas
 
