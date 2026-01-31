@@ -102,6 +102,7 @@ describe('ContactsService', () => {
       await expect(promise).rejects.toThrow(
         'Tipo de teléfono con id 999 no existe',
       );
+      expect(personRepo.save).not.toHaveBeenCalled();
     });
   });
 

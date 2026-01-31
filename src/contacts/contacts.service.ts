@@ -47,12 +47,20 @@ export class ContactsService {
     if (existing) {
       throw new ConflictException('Un contacto con este email ya existe');
     }
+
+    // Validar phoneTypeIds antes de persistir: si algún tipo no existe, lanzamos 400 sin crear el contacto (AC-008).
+    const hasPhones = (dto.phones?.length ?? 0) > 0;
+    if (hasPhones) {
+      await this.validatePhoneTypeIds(dto.phones!.map((p) => p.phoneTypeId));
+    }
+
+    // Crear y persistir el contacto (Person).
     const person = this.personRepo.create(dto);
     const savedPerson = await this.personRepo.save(person);
 
-    if (dto.phones?.length) {
-      await this.validatePhoneTypeIds(dto.phones.map((p) => p.phoneTypeId));
-      for (const p of dto.phones) {
+    // Persistir teléfonos asociados al contacto.
+    if (hasPhones) {
+      for (const p of dto.phones!) {
         await this.phoneRepo.save(
           this.phoneRepo.create({
             number: p.number,
@@ -62,6 +70,7 @@ export class ContactsService {
         );
       }
     }
+    // Persistir direcciones asociadas al contacto.
     if (dto.addresses?.length) {
       for (const a of dto.addresses) {
         await this.addressRepo.save(
@@ -98,6 +107,7 @@ export class ContactsService {
    * @returns La Person con ese email o null si no existe.
    */
   async findByEmail(email: string): Promise<Person | null> {
+    // Buscar por email (único por contacto).
     return this.personRepo.findOne({ where: { email } });
   }
 
@@ -109,6 +119,7 @@ export class ContactsService {
   async findByPersonalData(
     filters: FindByPersonalDataFilters,
   ): Promise<Person[]> {
+    // Armar criterios de búsqueda solo con los filtros no vacíos.
     const where: Partial<Person> = {};
     if (filters.firstName !== undefined && filters.firstName !== '') {
       where.firstName = filters.firstName;
@@ -131,6 +142,7 @@ export class ContactsService {
    * @returns La Person con ese id o null si no existe.
    */
   async findOne(id: number): Promise<Person | null> {
+    // Buscar contacto por id.
     return this.personRepo.findOne({ where: { id } });
   }
 
@@ -147,11 +159,13 @@ export class ContactsService {
     phoneTypeId?: number,
     typeName?: string,
   ): Promise<Person | null> {
+    // Validar que el número no esté vacío.
     const num = typeof number === 'string' ? number.trim() : '';
     if (!num) {
       throw new BadRequestException('El número de teléfono es requerido');
     }
 
+    // Exigir al menos phoneTypeId o typeName.
     const hasId =
       phoneTypeId !== undefined &&
       phoneTypeId !== null &&
@@ -164,6 +178,7 @@ export class ContactsService {
       throw new BadRequestException('Debe proporcionar phoneTypeId o typeName');
     }
 
+    // Resolver el id del tipo (por id o por nombre) y validar que exista.
     let resolvedPhoneTypeId: number;
     if (hasId) {
       const typeExists = await this.phoneTypeRepo.findOne({
@@ -183,6 +198,7 @@ export class ContactsService {
       resolvedPhoneTypeId = typeByName.id;
     }
 
+    // Buscar teléfono por número y tipo; devolver el contacto asociado.
     const phone = await this.phoneRepo
       .createQueryBuilder('phone')
       .innerJoinAndSelect('phone.person', 'person')
@@ -205,10 +221,12 @@ export class ContactsService {
    * @throws BadRequestException si algún phoneTypeId no existe en PhoneType.
    */
   async update(id: number, dto: UpdateContactDto): Promise<Person> {
+    // Verificar que el contacto exista.
     const person = await this.findOne(id);
     if (!person) {
       throw new NotFoundException('Contacto no encontrado');
     }
+    // Si se cambia el email, validar que no esté en uso.
     if (dto.email !== undefined && dto.email !== person.email) {
       const existing = await this.personRepo.findOne({
         where: { email: dto.email },
@@ -217,10 +235,12 @@ export class ContactsService {
         throw new ConflictException('Un contacto con este email ya existe');
       }
     }
+    // Aplicar datos de persona y guardar.
     const { phones, addresses, ...personData } = dto;
     Object.assign(person, personData);
     await this.personRepo.save(person);
 
+    // Si se envían phones, reemplazar los existentes (validar tipos antes de guardar).
     if (phones !== undefined) {
       await this.phoneRepo.delete({ personId: id });
       if (phones.length) {
@@ -236,6 +256,7 @@ export class ContactsService {
         }
       }
     }
+    // Si se envían addresses, reemplazar las existentes.
     if (addresses !== undefined) {
       await this.addressRepo.delete({ personId: id });
       if (addresses.length) {
@@ -263,6 +284,7 @@ export class ContactsService {
    * @throws NotFoundException si el contacto no existe.
    */
   async remove(id: number): Promise<void> {
+    // Verificar que el contacto exista y eliminarlo (cascada borra phones y addresses).
     const person = await this.findOne(id);
     if (!person) {
       throw new NotFoundException('Contacto no encontrado');
