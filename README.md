@@ -80,7 +80,7 @@ npm install
 npm run start:dev
 
 # Documentación API
-# Swagger disponible en http://localhost:3000/api (o la ruta configurada)
+# Swagger disponible en http://localhost:3000/swagger
 ```
 
 ---
