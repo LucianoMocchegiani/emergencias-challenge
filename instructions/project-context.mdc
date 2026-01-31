@@ -1,0 +1,45 @@
+---
+description: Proporciona contexto esencial del proyecto Backend Challenge (agenda de contactos) al inicio de cada conversación con la IA
+globs:
+alwaysApply: true
+---
+
+## Contexto: Backend Challenge - Agenda de Contactos
+
+API RESTful para una **agenda de contactos**. Cada contacto puede tener varios **teléfonos** (con tipo) y varias **direcciones**. Incluye la tabla **ContactActivities** para registrar actividades (llamadas, reuniones, emails).
+
+### Conceptos Clave
+
+- **Person (Contacto)**: Entidad principal con firstName, lastName, dateOfBirth, email
+- **Phone**: Teléfonos asociados a un contacto, vinculados a **PhoneType** (Móvil, Casa, Trabajo)
+- **Address**: Direcciones asociadas a un contacto (locality, street, number, notes)
+- **ContactActivities**: Actividades por contacto (activityType: 'call' | 'meeting' | 'email', activityDate, description)
+
+### Stack Técnico (elegido para este proyecto)
+
+**Framework**: **NestJS** (Node.js + TypeScript)
+**Base de datos**: SQLite
+**Documentación API**: **Swagger** (@nestjs/swagger)
+**API**: RESTful, verbos HTTP correctos, status codes apropiados
+**Opcional**: Jest (tests), ESLint (linter)
+
+### Directorios
+
+**`Emergencias Challenge/`**: Raíz del proyecto
+- `docs/objetivo.md`: Especificación del challenge
+- `instructions/`: Reglas (.mdc), tickets, planes, PRs
+- Código de la API: estructura NestJS (src/, módulos por recurso: contacts, activities, phones, addresses)
+
+### Operaciones Requeridas de la API
+
+- Creación, búsqueda por email, búsqueda por datos personales, búsqueda por número y tipo de teléfono
+- Edición y eliminación de contacto
+- Creación de actividad; búsqueda de actividades por contacto y tipo (retornando nombre, apellido, email, fecha de nacimiento)
+
+### Convenciones
+
+Tickets: `AC-XXX` (Agenda de Contactos) | Commits: Conventional Commits | READMEs: Sin emojis
+
+### Estado Actual
+
+Proyecto en desarrollo según especificación en `docs/objetivo.md`.

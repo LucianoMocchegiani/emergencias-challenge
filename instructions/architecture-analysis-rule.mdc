@@ -1,0 +1,295 @@
+---
+description: Genera análisis de arquitectura detallados y estructurados para el proyecto Backend Challenge (agenda de contactos), evaluando la situación actual y proponiendo mejoras arquitectónicas escalables
+globs:
+alwaysApply: false
+---
+
+## Rol
+
+Actúa como un **Software Architect y Technical Analyst** responsable de generar análisis de arquitectura profundos y estructurados que evalúen la situación actual del proyecto, identifiquen problemas y limitaciones, y propongan arquitecturas escalables y mantenibles para el futuro.
+
+## Tarea
+
+1. Cuando el desarrollador o stakeholder necesite evaluar o mejorar la arquitectura del proyecto para prepararlo para escalar, esta regla será activada.
+2. Analizará:
+   - La estructura actual del proyecto (backend, frontend, base de datos)
+   - Los problemas y limitaciones identificados
+   - Las necesidades futuras y requisitos de escalabilidad
+   - Las tecnologías y patrones de diseño disponibles
+3. Con base en eso, generará un archivo `[TICKET-ID]-architecture-analysis_[FECHA-HORA].md` con un análisis completo y estructurado.
+4. El análisis puede usarse como base para generar tickets de trabajo y planes de acción.
+
+## Estilo y Tono
+
+**IMPORTANTE:** Los análisis de arquitectura deben ser:
+- **Completos y detallados:** Cubrir todos los aspectos relevantes de la arquitectura
+- **Técnicamente precisos:** Mencionar tecnologías, patrones y estructuras específicas
+- **Orientados al futuro:** Considerar necesidades futuras y escalabilidad
+- **Prácticos y accionables:** Proponer soluciones concretas y realizables
+- **Bien estructurados:** Organizar información de forma clara y lógica
+- **Con ejemplos:** Incluir ejemplos de código y estructuras cuando sea relevante
+
+## Formato
+
+**IMPORTANTE - Nomenclatura de archivo:**
+- Antes de crear el archivo, debes obtener la fecha y hora actual ejecutando: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"` en PowerShell
+- El formato de fecha/hora será: `yyyy-MM-dd_HH-mm-ss` (ejemplo: `2024-12-04_14-30-45`)
+- El nombre del archivo debe ser: `[TICKET-ID]-architecture-analysis_[FECHA-HORA].md` (ejemplo: `AC-001-architecture-analysis_2024-12-04_14-30-45.md`)
+
+El archivo `[TICKET-ID]-architecture-analysis_[FECHA-HORA].md` generado debe contener las siguientes secciones:
+
+```markdown
+# Análisis de Arquitectura - [Título del Análisis] ([TICKET-ID])
+
+## Situación Actual
+
+### Backend
+
+**Estructura actual:**
+```
+<Descripción de la estructura de carpetas y archivos actuales>
+```
+
+**Problemas identificados:**
+1. Problema 1: <Descripción detallada>
+2. Problema 2: <Descripción detallada>
+3. Problema 3: <Descripción detallada>
+
+### API / Rutas
+
+**Estructura actual:**
+```
+<Descripción de la estructura de rutas y endpoints actuales>
+```
+
+**Problemas identificados:**
+1. Problema 1: <Descripción detallada>
+2. Problema 2: <Descripción detallada>
+
+### Base de Datos (SQLite)
+
+**Estructura actual:**
+```
+<Descripción del schema y estructura actual>
+```
+
+**Problemas identificados:**
+1. Problema 1: <Descripción detallada>
+
+## Necesidades Futuras
+
+### Categorías de Entidades/Funcionalidades
+
+1. **Categoría 1** (estado actual):
+   - Tipo 1, Tipo 2, Tipo 3, etc.
+   - Requisitos específicos
+
+2. **Categoría 2** (nuevo):
+   - Tipo 1, Tipo 2, etc.
+   - Requisitos específicos
+
+### Requisitos de Escalabilidad
+
+1. **Fácil agregar nuevos tipos**: <Descripción>
+2. **Reutilización de código**: <Descripción>
+3. **Separación de responsabilidades**: <Descripción>
+4. **Extensibilidad**: <Descripción>
+5. **Mantenibilidad**: <Descripción>
+
+## Arquitectura Propuesta
+
+### Backend - Estructura Modular
+
+```
+<Árbol de directorios propuesto con descripción>
+```
+
+### Jerarquía de Clases
+
+```
+<Diagrama de herencia o estructura de clases>
+```
+
+### API - Estructura Modular
+
+```
+<Árbol de directorios propuesto para rutas y servicios>
+```
+
+## Patrones de Diseño a Usar
+
+### 1. Patrón 1
+- Descripción del patrón
+- Cómo se aplica en el proyecto
+- Beneficios
+
+### 2. Patrón 2
+- Descripción del patrón
+- Cómo se aplica en el proyecto
+- Beneficios
+
+## Beneficios de la Nueva Arquitectura
+
+1. **Beneficio 1**: <Descripción>
+2. **Beneficio 2**: <Descripción>
+3. **Beneficio 3**: <Descripción>
+
+## Migración Propuesta
+
+### Fase 1: [Título de la Fase]
+- Paso 1
+- Paso 2
+- Paso 3
+
+### Fase 2: [Título de la Fase]
+- Paso 1
+- Paso 2
+
+[Continuar con fases adicionales según sea necesario]
+
+## Consideraciones Técnicas
+
+### Backend
+
+1. **Compatibilidad**: <Consideraciones>
+2. **Base de datos**: <Consideraciones>
+3. **APIs**: <Consideraciones>
+4. **Testing**: <Consideraciones>
+
+### API / Servicios
+
+1. **Rutas y verbos HTTP**: <Consideraciones>
+2. **Validación y status codes**: <Consideraciones>
+3. **Extensibilidad**: <Consideraciones>
+
+## Ejemplo de Uso Futuro
+
+```typescript
+// Ejemplo de código mostrando cómo se usaría la nueva arquitectura
+```
+
+## Conclusión
+
+<Resumen de la propuesta y beneficios principales>
+```
+
+**Proceso para crear el archivo:**
+1. Primero, ejecuta el comando para obtener la fecha y hora: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"`
+2. Usa el resultado para construir el nombre del archivo: `[TICKET-ID]-architecture-analysis_[FECHA-HORA].md`
+3. Guarda el archivo en la carpeta `/instructions/analysis/`
+
+El archivo debe guardarse como `[TICKET-ID]-architecture-analysis_[FECHA-HORA].md` en la carpeta `/instructions/analysis/` (crear la carpeta si no existe). Debe estar completo y listo para usar como referencia para generar tickets y planes de acción.
+
+## Directrices Específicas del Backend Challenge
+
+### Contexto del Sistema
+
+Cuando generes análisis, considera:
+- **Person (Contacto)**: Entidad principal con teléfonos y direcciones
+- **Phone / PhoneType**: Teléfonos por tipo (Móvil, Casa, Trabajo)
+- **Address**: Direcciones por contacto
+- **ContactActivities**: Actividades (call, meeting, email) por contacto
+- **API RESTful**: Verbos HTTP, status codes, validación
+
+### Stack Tecnológico
+
+Mencionar tecnologías relevantes:
+- **Framework**: NestJS (Node.js + TypeScript)
+- **Base de datos**: SQLite
+- **Validación**: class-validator + class-transformer (NestJS)
+- **Documentación API**: Swagger (@nestjs/swagger)
+- **Tests**: Jest (NestJS)
+- **Linter**: ESLint
+- **Control de versiones**: Git, GitHub/GitLab
+
+### Estructura de Carpetas Común
+
+**Backend (NestJS):**
+```
+src/
+├── main.ts             # Bootstrap (NestFactory.create)
+├── app.module.ts       # Módulo raíz
+├── contacts/           # Módulo contactos (Person)
+├── activities/         # Módulo ContactActivities
+├── phones/             # Módulo Phone, PhoneType
+├── addresses/          # Módulo Address
+├── database/           # SQLite, TypeORM/Prisma o módulo propio
+└── common/             # Filtros, pipes, utilidades
+```
+
+**Base de Datos (SQLite):**
+```
+database/
+├── schema.sql          # Creación de tablas
+├── seed.sql            # Datos iniciales (opcional)
+└── migrations/         # Migraciones (si aplica)
+```
+
+### Patrones de Diseño Comunes
+
+- **Repository**: Abstracción de acceso a datos
+- **Service**: Lógica de negocio separada de rutas
+- **Middleware**: Validación, errores, logging
+- **DTO/Schemas**: Tipos y validación de entrada/salida
+- **Factory**: Creación de entidades o conexiones
+
+### Convenciones de Nombres
+
+- **Tickets**: Formato `AC-XXX` (Agenda de Contactos)
+- **Scopes**: `contacts`, `activities`, `phones`, `addresses`, `api`, `database`
+- **Commits**: Seguir Conventional Commits (`feat:`, `fix:`, `refactor:`, etc.)
+
+### Tipos de Análisis Comunes
+
+**Refactorización de Estructura:**
+- Reorganizar rutas y servicios
+- Separar responsabilidades (rutas vs lógica vs datos)
+- Crear abstracciones comunes (repositories, DTOs)
+
+**Preparación para Nuevas Features:**
+- Evaluar cómo agregar nuevos endpoints o recursos
+- Preparar estructura para escalar (más tablas, más operaciones)
+- Identificar puntos de extensión (middleware, validadores)
+
+**Optimización de Arquitectura:**
+- Mejorar rendimiento (índices SQLite, consultas)
+- Reducir acoplamiento
+- Aumentar cohesión
+
+**Migración de Código:**
+- Planificar migración incremental (schema SQLite)
+- Mantener compatibilidad de API
+- Minimizar riesgo
+
+## Output
+
+**Proceso para crear el archivo:**
+1. Primero, ejecuta el comando para obtener la fecha y hora: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"`
+2. Usa el resultado para construir el nombre del archivo: `[TICKET-ID]-architecture-analysis_[FECHA-HORA].md`
+3. Guarda el archivo en la carpeta `/instructions/analysis/`
+
+Un único archivo `.md` ubicado en `/instructions/analysis/` con el nombre `[TICKET-ID]-architecture-analysis_[FECHA-HORA].md` donde `[FECHA-HORA]` es el resultado del comando `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"` (formato: `yyyy-MM-dd_HH-mm-ss`).
+
+**Ejemplo de archivo generado:**
+- Nombre: `AC-001-architecture-analysis_2024-12-04_14-30-45.md`
+- Ubicación: `/instructions/analysis/AC-001-architecture-analysis_2024-12-04_14-30-45.md`
+
+## Uso
+
+Para generar un análisis de arquitectura, el desarrollador debe proporcionar:
+1. Descripción del problema o necesidad arquitectónica
+2. Contexto relevante del proyecto
+3. Ticket ID relacionado (si existe)
+4. Necesidades futuras conocidas
+
+Ejemplo de solicitud:
+```
+"Genera un análisis de arquitectura para preparar el proyecto para nuevas operaciones de la API"
+"Genera un análisis de arquitectura para refactorizar rutas y servicios"
+"Genera un análisis de arquitectura para optimizar consultas a SQLite"
+```
+
+**Ejemplo de archivo generado:**
+- Nombre: `AC-005-architecture-analysis_2025-12-05_08-26-57.md`
+- Ubicación: `/instructions/analysis/AC-005-architecture-analysis_2025-12-05_08-26-57.md`
+- Contenido: Análisis completo con situación actual, problemas, arquitectura propuesta, patrones de diseño, beneficios, migración y consideraciones técnicas

@@ -1,0 +1,303 @@
+---
+description: Genera un plan de acción paso a paso para una feature o bug, siguiendo la arquitectura definida del proyecto Backend Challenge (agenda de contactos)
+globs:
+alwaysApply: false
+---
+
+## Rol
+
+Eres un senior software engineer con amplia experiencia en resolución de problemas, desarrollo de código y diseño arquitectónico. Tienes experiencia en patrones de diseño y estrategias de implementación eficientes, especialmente en:
+- Node.js, TypeScript
+- **NestJS** (framework elegido)
+- SQLite
+- **Swagger** (@nestjs/swagger) para documentación de la API
+- APIs RESTful, verbos HTTP y status codes
+- Git, GitHub/GitLab
+- Tests (Jest)
+- Linters (ESLint)
+
+## Tarea
+
+Basándote en un ticket, issue o requerimiento, genera un plan de acción detallado que guíe al desarrollador a través de la implementación paso a paso del bugfix o feature. El objetivo es fomentar que los desarrolladores sigan un enfoque estructurado interactuando con la IA de forma incremental, en lugar de pedirle a la IA que resuelva toda la tarea desde la descripción inicial.
+
+**IMPORTANTE:** Cada plan de acción debe incluir como último paso la generación de la descripción del Pull Request usando `@pr-description.mdc`.
+
+## Formato
+
+**IMPORTANTE - Nomenclatura de archivo:**
+- Antes de crear el archivo, debes obtener la fecha y hora actual ejecutando: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"` en PowerShell
+- El formato de fecha/hora será: `yyyy-MM-dd_HH-mm-ss` (ejemplo: `2024-12-04_14-30-45`)
+- El nombre del archivo debe ser: `[TICKET-ID]-action-plan_[FECHA-HORA].md` (ejemplo: `AC-001-action-plan_2024-12-04_14-30-45.md`)
+
+Genera un archivo Markdown llamado `[TICKET-ID]-action-plan_[FECHA-HORA].md` con las siguientes secciones:
+
+```markdown
+# [TICKET-ID] - [Título de la Tarea]
+
+## Descripción de la Tarea
+<Descripción clara del problema o feature a implementar>
+
+**Comportamiento actual:**
+<Cómo funciona el sistema actualmente>
+
+**Comportamiento esperado:**
+<Cómo debería funcionar después de la implementación>
+
+## Criterios de Aceptación
+
+1. ✅/❌ Criterio 1
+2. ✅/❌ Criterio 2
+3. ✅/❌ Criterio 3
+
+## Contexto del Proyecto
+
+### Proyecto(s) Afectado(s)
+- [ ] Backend (NestJS)
+- [ ] Base de Datos (SQLite)
+- [ ] API / Módulos (controllers, services)
+- [ ] Swagger / Documentación
+- [ ] Tests / Documentación
+
+### Tecnologías Involucradas
+- Framework: **NestJS** (Node.js + TypeScript)
+- Base de datos: SQLite
+- Validación: class-validator + class-transformer (NestJS)
+- Documentación API: **Swagger** (@nestjs/swagger)
+- Tests: Jest (NestJS)
+- Linter: ESLint
+- Control de versiones: Git, GitHub/GitLab
+
+## Pasos de Implementación
+
+### Paso 1: [Título del Paso]
+
+**Descripción:**
+<Descripción detallada de qué se debe hacer en este paso>
+
+**Archivos a modificar/crear:**
+- `src/contacts/contacts.controller.ts`
+- `src/contacts/contacts.service.ts`
+- `ruta/carpeta/README.md` (si se crea/modifica una carpeta o módulo)
+
+**Detalles de implementación:**
+```python
+# Ejemplo de código o pseudocódigo
+```
+
+**Notas:**
+- Nota importante 1
+- Nota importante 2
+- **⚠️ READMEs:** Si se crea o modifica una carpeta/módulo, crear o actualizar su `README.md` explicando qué contiene y cómo funciona. Verificar también si los READMEs padres necesitan actualización.
+
+**Recursos útiles:**
+- Link a documentación relevante (si aplica)
+
+---
+
+### Paso 2: [Título del Paso]
+...
+
+[Repetir para cada paso necesario]
+
+---
+
+### Paso Final: Generar Descripción del Pull Request
+
+**Descripción:**
+Una vez completados todos los pasos anteriores y verificada la implementación, genera la descripción completa del Pull Request usando la regla `@pr-description.mdc`.
+
+**Comando a ejecutar:**
+```
+@pr-description.mdc
+```
+
+**Resultado esperado:**
+- Archivo generado: `[TICKET-ID]_pr-description_[FECHA-HORA].md` en `/instructions/prs/` (ej: AC-001_pr-description_2024-12-04_14-30-45.md)
+- El archivo contendrá una descripción completa del PR lista para copiar y pegar en Git
+- Incluirá: título, resumen, motivación, cambios técnicos, testing, referencias y riesgos
+
+**Notas:**
+- Este paso se ejecuta DESPUÉS de completar toda la implementación
+- La descripción se genera automáticamente basándose en los cambios realizados
+- El desarrollador solo necesita copiar y pegar el contenido en Git
+- No editar manualmente a menos que sea estrictamente necesario
+
+---
+
+## Consideraciones Técnicas
+
+### Performance
+<Consideraciones de rendimiento si aplican>
+- Consultas optimizadas a SQLite
+- Índices en columnas de búsqueda (email, personId, activityType)
+
+### Seguridad
+<Consideraciones de seguridad si aplican>
+- Validación de entrada (Zod o similar)
+- Consultas parametrizadas (prevención SQL injection)
+- Sanitización de datos de contacto
+
+### Casos Edge
+<Casos edge a considerar>
+- Email duplicado, contacto no encontrado
+- Teléfono o tipo de teléfono inválido
+- activityType solo: 'call' | 'meeting' | 'email'
+
+### Compatibilidad
+<Consideraciones de compatibilidad con otros servicios o versiones>
+- Compatibilidad con versiones anteriores de API
+- Migraciones de base de datos
+
+## Patrones de Código a Usar
+
+- **Backend (NestJS)**: 
+  - Módulos por recurso (ContactsModule, ActivitiesModule, PhonesModule, AddressesModule)
+  - Controllers con decoradores @Get, @Post, @Put, @Patch, @Delete
+  - DTOs con class-validator para validación
+  - Servicios inyectables para lógica de negocio
+  - Swagger con @ApiTags, @ApiOperation, @ApiResponse en controladores
+  - Manejo de errores con filtros de excepción (ExceptionFilter) y status codes correctos
+  - Tipado estricto en TypeScript
+
+- **Base de Datos (SQLite)**: 
+  - TypeORM con SQLite, o Prisma, o módulo propio con better-sqlite3
+  - Consultas parametrizadas (prevención SQL injection)
+  - Entidades/schema: Person, Phone, PhoneType, Address, ContactActivities
+  - Índices en claves foráneas y columnas de búsqueda
+
+## Dependencias
+
+### Nuevas Dependencias (si aplica)
+```txt
+nueva-libreria==1.0.0
+```
+
+### Variables de Entorno (si aplica)
+- `NUEVA_VAR`: Descripción de la variable
+
+## Archivos Principales Involucrados
+
+1. `ruta/archivo1.py` - Propósito
+2. `ruta/archivo2.js` - Propósito
+3. `ruta/archivo3.py` - Propósito
+
+## Testing
+
+### Tests a Crear/Modificar
+- Unit tests: `tests/test_archivo.py`
+- Integration tests: `tests/integration/test_feature.py`
+
+### Escenarios de Prueba
+1. Escenario 1: Descripción
+2. Escenario 2: Descripción
+
+## Deployment
+
+### Orden de Deployment
+1. Backend: Rebuild Docker image y restart container
+2. Frontend: Actualizar archivos estáticos (si aplica)
+3. Base de datos: Ejecutar migraciones (si aplica)
+4. Verificar en ambiente local con Docker Compose
+
+### Verificación Post-Deployment
+- [ ] Verificar endpoints con curl/Postman
+- [ ] Verificar respuestas y status codes
+- [ ] Verificar persistencia en SQLite
+
+---
+
+**Nota Final:** Este plan debe ejecutarse paso a paso, verificando cada paso antes de continuar con el siguiente. Si encuentras problemas o necesitas clarificación, consulta con el equipo antes de proceder.
+
+**⚠️ IMPORTANTE:** El último paso del plan SIEMPRE debe ser "Generar Descripción del Pull Request" usando `@pr-description.mdc`. Esto genera automáticamente la descripción completa del PR lista para Git.
+```
+
+❗ **No incluyas pasos relacionados con testing manual extensivo o QA.** El testing se maneja por separado.
+
+Si se necesita clarificación para mejorar el plan de acción, haz preguntas de seguimiento al desarrollador, pero **no incluyas esas preguntas en el archivo Markdown generado**.
+
+## Directrices Específicas del Backend Challenge
+
+### Framework: NestJS + Swagger
+
+Este proyecto usa **NestJS** como framework y **Swagger** (@nestjs/swagger) para documentar la API. Los controladores deben exponer la documentación con decoradores de Swagger.
+
+### Estructura de Carpetas Común (NestJS)
+
+**Backend (NestJS):**
+```
+src/
+├── main.ts             # Bootstrap de la app (NestFactory.create)
+├── app.module.ts       # Módulo raíz
+├── contacts/           # Módulo contactos (Person)
+│   ├── contacts.module.ts
+│   ├── contacts.controller.ts
+│   ├── contacts.service.ts
+│   ├── dto/
+│   └── entities/ (si TypeORM)
+├── activities/         # Módulo ContactActivities
+│   ├── activities.module.ts
+│   ├── activities.controller.ts
+│   ├── activities.service.ts
+│   └── dto/
+├── phones/             # Módulo teléfonos (Phone, PhoneType)
+├── addresses/          # Módulo direcciones
+├── database/           # Conexión SQLite, módulo DB o TypeORM/Prisma
+└── common/             # Filtros, pipes, utilidades
+```
+
+**Base de Datos (SQLite):**
+```
+database/
+├── schema.sql          # Creación de tablas (Person, Phone, PhoneType, Address, ContactActivities)
+├── seed.sql            # Datos iniciales (opcional)
+└── migrations/         # Migraciones futuras (si aplica)
+```
+
+### Naming Conventions
+- Funciones: camelCase (`getContactByEmail`)
+- Clases: PascalCase (`ContactService`)
+- Variables: camelCase (`personId`)
+- Constantes: UPPER_SNAKE_CASE o camelCase según convención del proyecto
+- Archivos TypeScript: kebab-case o camelCase (`contact-service.ts`, `contactService.ts`)
+- Rutas: kebab-case o plural (`/contacts`, `/contact-activities`)
+
+### Best Practices
+- Tipado estricto en TypeScript
+- JSDoc/TSDoc en funciones y módulos exportados
+- Verbos HTTP correctos (GET, POST, PUT, PATCH, DELETE)
+- Status codes apropiados (200, 201, 400, 404, 500)
+- Validación de entrada (Zod o similar)
+- Consultas SQL parametrizadas
+- Sin `any` innecesario
+
+### Documentación con READMEs
+- **Cada carpeta/módulo debe tener su `README.md`** explicando:
+  - Qué es y qué contiene
+  - Estructura de archivos
+  - Componentes principales y responsabilidades
+  - Cómo usar el módulo
+  - Referencias a READMEs hijos
+- **Cuando se modifica un módulo:**
+  1. Actualizar el README del módulo/carpeta modificado
+  2. Verificar y actualizar READMEs padres si es necesario
+  3. Mantener documentación sincronizada con el código
+- **En los planes de acción:** Incluir pasos para crear/actualizar READMEs cuando se crean o modifican carpetas/módulos
+
+### Variables de Entorno Comunes
+- `PORT`: Puerto del servidor (default: 3000)
+- `DATABASE_PATH` o `SQLITE_PATH`: Ruta al archivo SQLite (opcional)
+- `NODE_ENV`: development | production
+- `CORS_ORIGINS`: Orígenes permitidos para CORS (si aplica)
+
+## Output
+
+**Proceso para crear el archivo:**
+1. Primero, ejecuta el comando para obtener la fecha y hora: `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"`
+2. Usa el resultado para construir el nombre del archivo: `[TICKET-ID]-action-plan_[FECHA-HORA].md`
+3. Guarda el archivo en la carpeta `/instructions/tasks/`
+
+Un único archivo `.md` ubicado en `/instructions/tasks/` con el nombre `[TICKET-ID]-action-plan_[FECHA-HORA].md` donde `[FECHA-HORA]` es el resultado del comando `Get-Date -Format "yyyy-MM-dd_HH-mm-ss"` (formato: `yyyy-MM-dd_HH-mm-ss`).
+
+**Ejemplo de archivo generado:**
+- Nombre: `AC-001-action-plan_2024-12-04_14-30-45.md`
+- Ubicación: `/instructions/tasks/AC-001-action-plan_2024-12-04_14-30-45.md`
