@@ -2,7 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
 } from 'typeorm';
+import { Phone } from './phone.entity';
+import { Address } from './address.entity';
 
 @Entity('person')
 export class Person {
@@ -20,4 +23,10 @@ export class Person {
 
   @Column({ type: 'text' })
   email: string;
+
+  @OneToMany(() => Phone, (phone) => phone.person)
+  phones: Phone[];
+
+  @OneToMany(() => Address, (addr) => addr.person)
+  addresses: Address[];
 }
