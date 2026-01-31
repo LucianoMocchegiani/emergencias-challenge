@@ -40,6 +40,23 @@ export class ContactsController {
     return contact;
   }
 
+  @Get('by-phone')
+  async findByPhoneAndType(
+    @Query('number') number: string,
+    @Query('phoneTypeId') phoneTypeId?: string,
+    @Query('typeName') typeName?: string,
+  ) {
+    const contact = await this.contactsService.findContactByPhoneNumberAndType(
+      number ?? '',
+      phoneTypeId !== undefined && phoneTypeId !== '' ? Number(phoneTypeId) : undefined,
+      typeName,
+    );
+    if (!contact) {
+      throw new NotFoundException('Contacto no encontrado');
+    }
+    return contact;
+  }
+
   @Get()
   async findAll(
     @Query('firstName') firstName?: string,
