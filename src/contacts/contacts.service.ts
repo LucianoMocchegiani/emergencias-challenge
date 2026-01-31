@@ -41,7 +41,9 @@ export class ContactsService {
    * @throws BadRequestException si algún phoneTypeId no existe en PhoneType.
    */
   async create(dto: CreateContactDto): Promise<Person> {
-    const existing = await this.personRepo.findOne({ where: { email: dto.email } });
+    const existing = await this.personRepo.findOne({
+      where: { email: dto.email },
+    });
     if (existing) {
       throw new ConflictException('Un contacto con este email ya existe');
     }
@@ -52,7 +54,11 @@ export class ContactsService {
       await this.validatePhoneTypeIds(dto.phones.map((p) => p.phoneTypeId));
       for (const p of dto.phones) {
         await this.phoneRepo.save(
-          this.phoneRepo.create({ number: p.number, phoneTypeId: p.phoneTypeId, personId: savedPerson.id }),
+          this.phoneRepo.create({
+            number: p.number,
+            phoneTypeId: p.phoneTypeId,
+            personId: savedPerson.id,
+          }),
         );
       }
     }
@@ -79,7 +85,9 @@ export class ContactsService {
     for (const id of uniqueIds) {
       const exists = await this.phoneTypeRepo.findOne({ where: { id } });
       if (!exists) {
-        throw new BadRequestException(`Tipo de teléfono con id ${id} no existe`);
+        throw new BadRequestException(
+          `Tipo de teléfono con id ${id} no existe`,
+        );
       }
     }
   }
@@ -98,7 +106,9 @@ export class ContactsService {
    * @param filters firstName, lastName, dateOfBirth, email (todos opcionales).
    * @returns Lista de Person que coinciden con los filtros enviados.
    */
-  async findByPersonalData(filters: FindByPersonalDataFilters): Promise<Person[]> {
+  async findByPersonalData(
+    filters: FindByPersonalDataFilters,
+  ): Promise<Person[]> {
     const where: Partial<Person> = {};
     if (filters.firstName !== undefined && filters.firstName !== '') {
       where.firstName = filters.firstName;
@@ -146,14 +156,19 @@ export class ContactsService {
       phoneTypeId !== undefined &&
       phoneTypeId !== null &&
       (typeof phoneTypeId === 'number' || String(phoneTypeId).trim() !== '');
-    const hasName = typeName !== undefined && typeName !== null && String(typeName).trim() !== '';
+    const hasName =
+      typeName !== undefined &&
+      typeName !== null &&
+      String(typeName).trim() !== '';
     if (!hasId && !hasName) {
       throw new BadRequestException('Debe proporcionar phoneTypeId o typeName');
     }
 
     let resolvedPhoneTypeId: number;
     if (hasId) {
-      const typeExists = await this.phoneTypeRepo.findOne({ where: { id: Number(phoneTypeId) } });
+      const typeExists = await this.phoneTypeRepo.findOne({
+        where: { id: Number(phoneTypeId) },
+      });
       if (!typeExists) {
         throw new BadRequestException('Tipo de teléfono no válido o no existe');
       }
@@ -172,7 +187,9 @@ export class ContactsService {
       .createQueryBuilder('phone')
       .innerJoinAndSelect('phone.person', 'person')
       .where('phone.number = :number', { number: num })
-      .andWhere('phone.phoneTypeId = :phoneTypeId', { phoneTypeId: resolvedPhoneTypeId })
+      .andWhere('phone.phoneTypeId = :phoneTypeId', {
+        phoneTypeId: resolvedPhoneTypeId,
+      })
       .getOne();
 
     return phone?.person ?? null;
@@ -193,7 +210,9 @@ export class ContactsService {
       throw new NotFoundException('Contacto no encontrado');
     }
     if (dto.email !== undefined && dto.email !== person.email) {
-      const existing = await this.personRepo.findOne({ where: { email: dto.email } });
+      const existing = await this.personRepo.findOne({
+        where: { email: dto.email },
+      });
       if (existing) {
         throw new ConflictException('Un contacto con este email ya existe');
       }
@@ -208,7 +227,11 @@ export class ContactsService {
         await this.validatePhoneTypeIds(phones.map((p) => p.phoneTypeId));
         for (const p of phones) {
           await this.phoneRepo.save(
-            this.phoneRepo.create({ number: p.number, phoneTypeId: p.phoneTypeId, personId: id }),
+            this.phoneRepo.create({
+              number: p.number,
+              phoneTypeId: p.phoneTypeId,
+              personId: id,
+            }),
           );
         }
       }
