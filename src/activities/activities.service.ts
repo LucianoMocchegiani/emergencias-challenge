@@ -36,12 +36,14 @@ export class ActivitiesService {
    * @throws NotFoundException si el contacto (personId) no existe.
    */
   async create(dto: CreateActivityDto): Promise<ContactActivity> {
+    // Verificar que el contacto exista antes de crear la actividad.
     const person = await this.personRepo.findOne({
       where: { id: dto.personId },
     });
     if (!person) {
       throw new NotFoundException('Contacto no encontrado');
     }
+    // Crear y persistir la actividad asociada al contacto.
     const activity = this.activityRepo.create({
       personId: dto.personId,
       activityType: dto.activityType as ActivityType,
@@ -62,14 +64,17 @@ export class ActivitiesService {
     personId: number,
     activityType: string,
   ): Promise<ContactActivitiesResult> {
+    // Verificar que el contacto exista.
     const person = await this.personRepo.findOne({ where: { id: personId } });
     if (!person) {
       throw new NotFoundException('Contacto no encontrado');
     }
+    // Buscar actividades del contacto por tipo, ordenadas por fecha ascendente.
     const activities = await this.activityRepo.find({
       where: { personId, activityType: activityType as ActivityType },
       order: { activityDate: 'ASC' },
     });
+    // Devolver datos del contacto y lista de actividades (puede ser []).
     return {
       contact: {
         firstName: person.firstName,
