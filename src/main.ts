@@ -17,12 +17,18 @@ async function bootstrap() {
     .setTitle('Agenda de Contactos API')
     .setDescription('API REST para contactos y actividades')
     .setVersion('1.0')
-    .addTag('Contacts', 'Contactos: CRUD, búsqueda por email, datos personales, por teléfono')
-    .addTag('Activities', 'Actividades: creación y búsqueda por contacto y tipo')
+    .addTag(
+      'Contacts',
+      'Contactos: CRUD, búsqueda por email, datos personales, por teléfono',
+    )
+    .addTag(
+      'Activities',
+      'Actividades: creación y búsqueda por contacto y tipo',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+void bootstrap();
