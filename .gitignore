@@ -37,6 +37,9 @@ yarn-error.log*
 coverage/
 .nyc_output/
 
+# Local / No subir a GitHub (repasos, notas personales)
+para-mi-no-se-sube-a-github/
+
 # Misc
 *.bak
 *.tmp
