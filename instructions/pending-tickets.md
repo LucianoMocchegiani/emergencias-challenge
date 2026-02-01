@@ -17,6 +17,7 @@ Lista de tickets que aún no tienen un Pull Request completado.
 - [x] **AC-008** - ContactsService.create: validar phoneTypeId antes de persistir Person (bugfix)
 - [x] **AC-009** - Seed de tipos de teléfono (PhoneType) y documentación en README
 - [x] **AC-010** - Validaciones de entrada (email y formato de fechas)
+- [x] **AC-011** - Documentación del proyecto: docs/, diagrama BD, arquitectura, tecnologías, patrones y referencias en README
 
 ## Notas
 
