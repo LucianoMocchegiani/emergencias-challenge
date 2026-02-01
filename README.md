@@ -67,15 +67,18 @@ Emergencias Challenge/
 
 ## Cómo empezar
 
-(Se completará cuando exista el código NestJS.)
-
 ```bash
 # Instalar dependencias
 npm install
 
-# Base de datos (crear/ejecutar schema SQLite si aplica)
-# ...
+# Base de datos: la tabla SQLite se crea al arrancar la app (TypeORM synchronize).
+# Opcional: ejecutar la seed de tipos de teléfono antes o después del primer arranque:
+npm run seed
+```
 
+**Tipos de teléfono iniciales (seed):** tras ejecutar `npm run seed`, la tabla `phone_type` tendrá: **1 móvil**, **2 casa**, **3 trabajo**. Al crear o editar contactos con teléfonos, `phoneTypeId` debe ser un id existente en `phone_type` (estos u otros que se añadan a la BD).
+
+```bash
 # Desarrollo
 npm run start:dev
 
