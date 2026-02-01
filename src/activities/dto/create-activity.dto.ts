@@ -5,7 +5,7 @@ import {
   IsIn,
   IsOptional,
   IsNotEmpty,
-  MinLength,
+  IsISO8601,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -30,11 +30,10 @@ export class CreateActivityDto {
 
   @ApiProperty({
     example: '2025-01-15T10:00:00Z',
-    description: 'Fecha de la actividad (ISO string o formato legible)',
+    description: 'Fecha de la actividad (formato ISO 8601)',
   })
-  @IsString()
   @IsNotEmpty({ message: 'activityDate es requerido' })
-  @MinLength(1, { message: 'activityDate es requerido' })
+  @IsISO8601({}, { message: 'activityDate debe ser una fecha ISO 8601 válida' })
   activityDate: string;
 
   @ApiPropertyOptional({
