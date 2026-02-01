@@ -1,4 +1,3 @@
-
 # Backend Challenge
 
 Se necesita crear una API RESTful para una **agenda de contactos**.  
@@ -117,3 +116,7 @@ Se evaluará:
 - Escritura de **código limpio** y buenas prácticas.
 - **Arquitectura**.
 - **Patrones de diseño**.
+
+---
+
+[README principal](../README.md)
