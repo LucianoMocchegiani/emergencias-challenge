@@ -77,3 +77,7 @@ Si no hay actividades para ese contacto y tipo, `activities` es un array vacío 
 
 - Entidades: ContactActivity, Person (src/database/entities/).
 - Validación: class-validator + class-transformer; ValidationPipe global en main.ts.
+
+---
+
+[README principal](../../README.md)

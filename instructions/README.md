@@ -528,3 +528,5 @@ Si necesitas agregar nuevas reglas o mejorar las existentes:
 **Última actualización:** Enero 2025  
 **Proyecto:** Backend Challenge - Agenda de Contactos
 
+[README principal](../README.md)
+
