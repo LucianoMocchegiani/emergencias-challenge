@@ -1,8 +1,7 @@
 import { DataSource } from 'typeorm';
 import { PhoneType } from './entities/phone-type.entity';
 
-const databasePath =
-  process.env.DATABASE_PATH ?? './data/contacts.db';
+const databasePath = process.env.DATABASE_PATH ?? './data/contacts.db';
 
 const dataSource = new DataSource({
   type: 'sqlite',
@@ -23,7 +22,9 @@ async function runSeed(): Promise<void> {
     ]);
     console.log('Seed: insertados tipos de teléfono (móvil, casa, trabajo).');
   } else {
-    console.log('Seed: la tabla phone_type ya tiene datos; no se inserta nada.');
+    console.log(
+      'Seed: la tabla phone_type ya tiene datos; no se inserta nada.',
+    );
   }
   await dataSource.destroy();
 }

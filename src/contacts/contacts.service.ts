@@ -152,12 +152,11 @@ export class ContactsService {
    * @param phoneTypeId ID del tipo de teléfono (opcional si se pasa typeName)
    * @param typeName Nombre del tipo de teléfono (opcional si se pasa phoneTypeId). Si ambos están presentes, se usa phoneTypeId.
    * @returns La Person que tiene ese teléfono con ese tipo, o null si no existe. Si hay varios, devuelve la primera.
-   * @throws BadRequestException si number vacío, si no se proporciona phoneTypeId ni typeName, o si el tipo no existe.
+   * @throws BadRequestException si number vacío o si el tipo no existe.
    */
   async findContactByPhoneNumberAndType(
     number: string,
-    phoneTypeId?: number,
-    typeName?: string,
+    phoneTypeId: number,
   ): Promise<Person | null> {
     // Validar que el número no esté vacío.
     const num = typeof number === 'string' ? number.trim() : '';
@@ -165,37 +164,12 @@ export class ContactsService {
       throw new BadRequestException('El número de teléfono es requerido');
     }
 
-    // Exigir al menos phoneTypeId o typeName.
-    const hasId =
-      phoneTypeId !== undefined &&
-      phoneTypeId !== null &&
-      (typeof phoneTypeId === 'number' || String(phoneTypeId).trim() !== '');
-    const hasName =
-      typeName !== undefined &&
-      typeName !== null &&
-      String(typeName).trim() !== '';
-    if (!hasId && !hasName) {
-      throw new BadRequestException('Debe proporcionar phoneTypeId o typeName');
-    }
-
-    // Resolver el id del tipo (por id o por nombre) y validar que exista.
-    let resolvedPhoneTypeId: number;
-    if (hasId) {
-      const typeExists = await this.phoneTypeRepo.findOne({
-        where: { id: Number(phoneTypeId) },
-      });
-      if (!typeExists) {
-        throw new BadRequestException('Tipo de teléfono no válido o no existe');
-      }
-      resolvedPhoneTypeId = Number(phoneTypeId);
-    } else {
-      const typeByName = await this.phoneTypeRepo.findOne({
-        where: { typeName: String(typeName).trim() },
-      });
-      if (!typeByName) {
-        throw new BadRequestException('Tipo de teléfono no válido o no existe');
-      }
-      resolvedPhoneTypeId = typeByName.id;
+    // Validar que el tipo de teléfono exista.
+    const typeExists = await this.phoneTypeRepo.findOne({
+      where: { id: Number(phoneTypeId) },
+    });
+    if (!typeExists) {
+      throw new BadRequestException('Tipo de teléfono no válido o no existe');
     }
 
     // Buscar teléfono por número y tipo; devolver el contacto asociado.
@@ -204,7 +178,7 @@ export class ContactsService {
       .innerJoinAndSelect('phone.person', 'person')
       .where('phone.number = :number', { number: num })
       .andWhere('phone.phoneTypeId = :phoneTypeId', {
-        phoneTypeId: resolvedPhoneTypeId,
+        phoneTypeId: Number(phoneTypeId),
       })
       .getOne();
 

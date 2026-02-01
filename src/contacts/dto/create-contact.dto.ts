@@ -5,6 +5,7 @@ import {
   MinLength,
   IsArray,
   ValidateNested,
+  Matches,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
@@ -22,9 +23,15 @@ export class CreateContactDto {
   @MinLength(1)
   lastName: string;
 
-  @ApiPropertyOptional({ example: '1990-05-15' })
+  @ApiPropertyOptional({
+    example: '1990-05-15',
+    description: 'Fecha de nacimiento (formato YYYY-MM-DD)',
+  })
   @IsOptional()
   @IsString()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/, {
+    message: 'dateOfBirth debe tener formato YYYY-MM-DD',
+  })
   dateOfBirth?: string;
 
   @ApiProperty({ example: 'juan@example.com' })
