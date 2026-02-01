@@ -4,6 +4,7 @@ Lista de tickets que aún no tienen un Pull Request completado.
 
 ## Tickets Pendientes
 
+(No hay tickets pendientes actualmente)
 
 ## Tickets Completados (con PR)
 - [x] **AC-001** - Planificación generalizada: creación de tickets para dividir el trabajo
@@ -15,6 +16,7 @@ Lista de tickets que aún no tienen un Pull Request completado.
 - [x] **AC-007** - Tests (Jest) y linter (ESLint)
 - [x] **AC-008** - ContactsService.create: validar phoneTypeId antes de persistir Person (bugfix)
 - [x] **AC-009** - Seed de tipos de teléfono (PhoneType) y documentación en README
+- [x] **AC-010** - Validaciones de entrada (email y formato de fechas)
 
 ## Notas
 
